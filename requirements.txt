@@ -1,0 +1,6 @@
+streamlit~=1.51.0
+openai~=2.8.0
+dotenv~=0.9.9
+python-dotenv~=1.2.1
+pandas~=2.3.3
+protobuf~=6.33.1
