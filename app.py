@@ -174,11 +174,62 @@ with tab1:
         st.markdown("</div>", unsafe_allow_html=True)
 
         # Quick Actions
+        # st.markdown("### Quick Actions")
+        # col1, col2 = st.columns(2)
+        # with col1:
+        #     if st.button("💡 Show Support Resources"):
+        #         st.write(get_support_recommendations(risk_level.lower()))
+        # Quick Actions
         st.markdown("### Quick Actions")
         col1, col2 = st.columns(2)
+
+
+        def action_color(level):
+            if level == "high":
+                return "#ff4c4c"  # red
+            elif level == "medium":
+                return "#ffa500"  # orange
+            elif level == "low":
+                return "#90ee90"  # light green
+            else:
+                return "#d3d3d3"  # grey
+
+
+        def action_icon(level):
+            """ risk level icons """
+            icons = {
+                "high": "⚠️ ",
+                "medium": "💡 ",
+                "low": "✅ ",
+                "none": "ℹ️ "
+            }
+            return icons.get(level, "ℹ️ ")
+
         with col1:
             if st.button("💡 Show Support Resources"):
-                st.write(get_support_recommendations(risk_level.lower()))
+                actions = get_support_recommendations(risk_level.lower())
+                if actions:
+                    for action in actions:
+                        color = action_color(risk_level.lower())
+                        # icon = "⚠️ " if risk_level.lower() == "high" else ""
+                        icon = action_icon(risk_level.lower())
+                        st.markdown(
+                            f"""
+                            <div style="
+                                padding: 10px;
+                                border-radius: 8px;
+                                margin-bottom: 5px;
+                                background-color: {color};
+                                color: black;
+                                font-weight: bold;
+                            ">
+                                {icon}{action}
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
+                else:
+                    st.info("No specific actions recommended.")
         with col2:
             st.session_state.quick_email = st.text_input(
                 "Enter email for notification", value=st.session_state.quick_email
