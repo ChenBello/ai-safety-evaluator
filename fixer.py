@@ -1,3 +1,4 @@
+# fixer.py
 import os
 from dotenv import load_dotenv
 from google import genai  # Google AI Studio Python SDK
@@ -22,7 +23,7 @@ def fix_text(text):
 
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",  # or "gemini-2.5-pro"
+            model="gemini-2.0-flash",  # or "gemini-2.5-pro"
             contents=prompt
         )
         return response.text

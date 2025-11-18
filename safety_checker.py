@@ -1,3 +1,4 @@
+# safety_checker.py
 import os
 import json
 import re
